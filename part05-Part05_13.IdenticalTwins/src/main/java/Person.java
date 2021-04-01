@@ -30,7 +30,10 @@ public class Person {
         
         if (this.name.equals(comparedPerson.name) &&
             this.height == comparedPerson.height &&
-            this.weight == comparedPerson.weight) {
+            this.weight == comparedPerson.weight &&
+            this.birthday.getYear() == comparedPerson.birthday.getYear() &&
+            this.birthday.getMonth() == comparedPerson.birthday.getMonth() &&
+            this.birthday.getDay() == comparedPerson.birthday.getDay()) {
             return true;
         }
         return false;

@@ -13,7 +13,7 @@ public class Main {
             System.out.println("Is this quite correct?");
         }
 
-        Person leoWithDifferentWeight = new Person("Leo", date, 62, 10);
+        Person leoWithDifferentWeight = new Person("Leo", date, 62, 9);
 
         if (leo.equals(leoWithDifferentWeight)) {
             System.out.println("Is this quite correct?");
