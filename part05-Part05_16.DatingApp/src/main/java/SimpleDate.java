@@ -9,7 +9,7 @@ public class SimpleDate {
         this.day = day;
         this.month = month;
         this.year = year;
-    }
+    }    
 
     @Override
     public String toString() {
@@ -31,6 +31,38 @@ public class SimpleDate {
         }
 
         return false;
+    }
+    
+    public void advance() {
+        this.day++;
+        
+        if (this.day > 30) {
+            this.month++;
+            this.day = 1;
+            
+            if (this.month > 12) {
+                this.year++;
+                this.month = 1;
+            }
+        }
+    }
+    
+    public void advance(int howManyDays) {
+        int counter = 0;
+        
+        while (counter < howManyDays) {
+            this.advance();
+            counter++;
+        }
+             
+    }
+    
+    public SimpleDate afterNumberOfDays(int days) {
+        SimpleDate newDate = new SimpleDate(this.day, this.month, this.year);
+        
+        newDate.advance(days);
+        
+        return newDate;
     }
 
 }
