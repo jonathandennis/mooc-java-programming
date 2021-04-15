@@ -8,14 +8,14 @@ public class Item {
     }
     
     public String getName() {
-        return name;
+        return this.name;
     }
     
     public int getWeight() {
-        return weight;
+        return this.weight;
     }
     
     public String toString() {
-        return name + " (" + weight + " kg)";
+        return this.name + " (" + this.weight + " kg)";
     }
 }

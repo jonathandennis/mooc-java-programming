@@ -2,22 +2,27 @@ import java.util.ArrayList;
 
 public class Hold {
     private int maxWeight;
-    private int sumOfWeights;
     
     private ArrayList<Suitcase> cases;
     
     public Hold(int maxWeight) {
         this.cases = new ArrayList<>();
-        this.maxWeight = maxWeight;
-        sumOfWeights = 0;
-        
+        this.maxWeight = maxWeight;        
     }
     
     public void addSuitcase(Suitcase suitcase) {
-        if (maxWeight >= suitcase.totalWeight() + sumOfWeights) {
-            this.cases.add(suitcase);
-            sumOfWeights += suitcase.totalWeight();
+        if (this.totalWeight() + suitcase.totalWeight() > maxWeight) {
+            return;
         }
+        this.cases.add(suitcase);
+    }
+    
+    public int totalWeight() {        
+        int sum = 0;        
+        for (Suitcase suitcase : cases) {
+            sum += suitcase.totalWeight();
+        }
+        return sum;
     }
     
     public void printItems() {
@@ -27,6 +32,15 @@ public class Hold {
     }
     
     public String toString() {
-        return this.cases.size() + " suitcases (" + sumOfWeights + " kg)"; 
+        
+        if (this.cases.isEmpty()) {
+            return "no suitcases (0 kg)";
+        }
+        
+        if (this.cases.size() == 1) {
+            return "1 suitcase (" + this.totalWeight() + " kg";
+        }
+        
+        return this.cases.size() + " suitcases (" + this.totalWeight() + " kg)"; 
     }
 }
