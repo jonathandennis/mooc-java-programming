@@ -20,7 +20,7 @@ public class ExerciseManagement {
         this.exercises.add(new Exercise(exercise));
     }
     
-    public void markedAsCompleted(String exercise) {
+    public void markAsCompleted(String exercise) {
         for (Exercise ex : exercises) {
             if (ex.getName().equals(exercise)) {
                 ex.setCompleted(true);

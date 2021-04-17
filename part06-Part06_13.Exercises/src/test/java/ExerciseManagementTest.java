@@ -1,8 +1,9 @@
+import org.junit.Before;
+import org.junit.Test;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
-import org.junit.Before;
-import org.junit.Test;
 
 public class ExerciseManagementTest {
     private ExerciseManagement management;
@@ -32,14 +33,14 @@ public class ExerciseManagementTest {
     @Test
     public void exerciseCanBeMarkedAsCompleted() {
         management.add("New exercise");
-        management.markedAsCompleted("New exercise");
+        management.markAsCompleted("New exercise");
         assertTrue(management.isCompleted("New exercise"));
     }
     
     @Test
     public void ifNotMarkedCompletedIsNotCompleted() {
         management.add("New exercise");
-        management.markedAsCompleted("New exercise");
+        management.markAsCompleted("New exercise");
         assertFalse(management.isCompleted("Some exercise"));
     }
 }
