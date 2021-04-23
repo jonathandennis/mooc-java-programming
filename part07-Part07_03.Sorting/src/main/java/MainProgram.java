@@ -1,4 +1,7 @@
 
+import java.util.Arrays;
+
+
 public class MainProgram {
 
     public static void main(String[] args) {
@@ -9,6 +12,15 @@ public class MainProgram {
         System.out.println(MainProgram.indexOfSmallestFrom(numbers, 0));
         System.out.println(MainProgram.indexOfSmallestFrom(numbers, 1));
         System.out.println(MainProgram.indexOfSmallestFrom(numbers, 2));
+        
+        System.out.println(Arrays.toString(numbers));
+
+        MainProgram.swap(numbers, 1, 0);
+        System.out.println(Arrays.toString(numbers));
+
+        MainProgram.swap(numbers, 0, 3);
+        System.out.println(Arrays.toString(numbers));
+        MainProgram.sort(numbers);
     }
     
     public static int smallest(int[] array) {
@@ -25,28 +37,44 @@ public class MainProgram {
     }
     
     public static int indexOfSmallest(int[] array) {
-        int indexOf = 0;
+        int indexOfSmallest = 0;
         int index = 0;
         while (index < array.length) {
-            if (array[index] == smallest(array)) {
-                indexOf = index;
+            if (array[index] < array[indexOfSmallest]) {
+                indexOfSmallest = index;
             }           
             index++;
         }
-        return indexOf;
+        return indexOfSmallest;
     }
     
-    public static int indexOfSmallestFrom(int[] table, int startIndex) {
-        int smallestFrom = table[startIndex];
-        int indexOf = startIndex;
+    public static int indexOfSmallestFrom(int[] array, int startIndex) {
+        int indexOfSmallest = startIndex;
+        
         int index = startIndex;
-        while (index < table.length) {
-            if (smallestFrom > table[index]) {
-                indexOf = index;
-                smallestFrom = table[index];
+        while (index < array.length) {
+            if (array[index] < array[indexOfSmallest]) {
+                indexOfSmallest = index;
             }
             index++;
         }
-        return indexOf;
+        return indexOfSmallest;
+    }
+    
+    public static void swap(int[] array, int index1, int index2) {
+        int helper = array[index1];
+        array[index1] = array[index2];
+        array[index2] = helper;
+    }
+    
+    public static void sort(int[] array) {
+        int index = 0;
+        while (index < array.length - 1) {
+            System.out.println(Arrays.toString(array));
+            
+            int smallestInt = indexOfSmallestFrom(array, index);
+            swap(array, index, smallestInt);
+            index++;
+        }
     }
 } 
