@@ -37,13 +37,13 @@ public class Main {
             register.addGradeBasedOnPoints(score);
         } 
         
-        System.out.println("Point average (all): " + (1.0 * pointTotal / i));
+        System.out.println("Point average (all): " + register.averageOfPoints());
         if (passingTotal == 0) {
             System.out.println("Point average (passing): -");
         } else {
-            System.out.println("Point average (passing): " + (1.0 * passingTotal / iPass));
+            System.out.println("Point average (passing): " + register.averageOfPointsPassing());
         }
-        System.out.println("Pass percentage: " + 100.0 * iPass / i);
+        System.out.println("Pass percentage: " + register.percentPass());
         System.out.println("Grade distribution:");
         
         int grade = 5;
