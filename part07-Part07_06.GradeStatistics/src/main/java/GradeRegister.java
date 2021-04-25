@@ -2,8 +2,8 @@ import java.util.ArrayList;
 
 public class GradeRegister {
     
-    private ArrayList<Integer> grades;
-    private ArrayList<Integer> points;
+    private final ArrayList<Integer> grades;
+    private final ArrayList<Integer> points;
     
     public GradeRegister() {
         this.grades = new ArrayList<>();

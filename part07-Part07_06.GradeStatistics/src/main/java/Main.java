@@ -1,5 +1,4 @@
 import java.util.Scanner;
-import java.util.ArrayList;
 
 public class Main {
 
@@ -8,54 +7,7 @@ public class Main {
         
         GradeRegister register = new GradeRegister();
         
-        System.out.println("Enter point totals, -1 stops:");
-        
-        int pointTotal = 0;
-        int passingTotal = 0;
-        int i = 0;
-        int iPass = 0;
-        
-        while (true) {
-            int score = Integer.valueOf(scanner.nextLine());
-            
-            if (score == -1) {
-                break;
-            }
-            
-            if (score < 0 || score > 100) {
-                continue;
-            }
-            
-            if (score >= 50) {
-                passingTotal += score;
-                iPass++;
-            }
-            
-            pointTotal += score;
-            i++;
-            
-            register.addGradeBasedOnPoints(score);
-        } 
-        
-        System.out.println("Point average (all): " + register.averageOfPoints());
-        if (passingTotal == 0) {
-            System.out.println("Point average (passing): -");
-        } else {
-            System.out.println("Point average (passing): " + register.averageOfPointsPassing());
-        }
-        System.out.println("Pass percentage: " + register.percentPass());
-        System.out.println("Grade distribution:");
-        
-        int grade = 5;
-        while (grade >=0) {
-            int stars = register.numberOfGrades(grade);
-            System.out.print(grade + ": ");
-            while (stars > 0) {
-                System.out.print("*");
-                stars--;
-            }
-            System.out.println("");
-            grade--;
-        }
+        UserInterface ui = new UserInterface(register, scanner);
+        ui.start();
     }
 }
