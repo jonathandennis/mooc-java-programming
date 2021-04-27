@@ -5,26 +5,30 @@ public class Recipe {
     private int cookTime;
     private ArrayList<String> ingredients;
     
-    public Recipe(String name, int cookTime, ArrayList<String> ingredients) {
+    public Recipe(String name, int cookTime) {
         this.name = name;
         this.cookTime = cookTime;
-        this.ingredients = ingredients;
+        this.ingredients = new ArrayList<>();
     }
     
-    public String getName() {
-        return this.name;
+    public boolean cookingTimeAtMost(int max) {
+        return this.cookTime <= max;
     }
     
-    public int getCookTime() {
-        return this.cookTime;
+    public boolean nameContains(String searchName) {
+        return this.name.contains(searchName);
     }
     
-    public ArrayList<String> getIngredients() {
-        return this.ingredients;
+    public boolean containsIngredient(String ingredient) {
+        return this.ingredients.contains(ingredient);
+    }
+    
+    public void addIngredient(String ingredient) {
+        this.ingredients.add(ingredient);
     }
     
     @Override
     public String toString() {
-        return this.name + ", cooking time: " + this.cookTime; 
+        return this.name + ", cooking time: " + cookTime; 
     }
 }

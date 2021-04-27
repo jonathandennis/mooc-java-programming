@@ -1,4 +1,4 @@
-import java.nio.file.Paths;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -6,19 +6,44 @@ public class RecipeSearch {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-
+        // main list for recipes
+        ArrayList<Recipe> recipes = new ArrayList<>();
         System.out.print("File to read: ");
         String file = scanner.nextLine(); 
-        ArrayList<Recipe> recipes = readRecipesFromFile(file);
         
+        try (Scanner fileReader = new Scanner(new File(file))) {
+            // read recipes and ingredients
+            while (fileReader.hasNextLine()) {
+                // read a recipe and create an object for it
+                String recipeName = fileReader.nextLine();
+                int recipeTime = Integer.valueOf(fileReader.nextLine());
+                Recipe recipe = new Recipe(recipeName, recipeTime);
+                
+                // add recipe to the main list
+                recipes.add(recipe);
+                
+                // add ingredients for the recipe
+                while (fileReader.hasNextLine()) {
+                    String ingredient = fileReader.nextLine();
+                    
+                    //ingredients and recipe end with an empty line
+                    if (ingredient.isEmpty()) {
+                        //exit from this while loop
+                        break;
+                    }
+                    recipe.addIngredient(ingredient);
+                }
+            }
+        } catch (Exception e){
+            System.out.println("Error: " + e.getMessage());
+        }
         System.out.println("");
         System.out.println("Commands:\n"
-                        + "list - lists the recipes\n"
-                        + "stop - stops the program\n"
-                        + "find name - searches recipes by name\n"
-                        + "find cooking time - searches recipes by cooking time\n"
-                        + "find ingredient - searches recipes by ingredient"
-                        );
+                + "list - lists the recipes\n"
+                + "stop - stops the program\n"
+                + "find name - searches recipes by name\n"
+                + "find cooking time - searches recipes by cooking time\n"
+                + "find ingredient - searches recipes by ingredient");
 
         while (true) {
             System.out.println("");
@@ -34,20 +59,20 @@ public class RecipeSearch {
                 System.out.println("Recipes:");
                 for (Recipe recipe : recipes) {                
                     System.out.println(recipe);
+                    
                 }
             }
             
             if (command.equals("find name")) {
                 System.out.print("Searched word: ");
-                String searchWord = scanner.nextLine();
+                String searchName = scanner.nextLine();
                 System.out.println("");
                 System.out.println("Recipes:");
                 
                 for (Recipe recipe : recipes) {
-                    if (!recipe.getName().contains(searchWord)) {
-                        continue;
-                    }
+                    if (recipe.nameContains(searchName)) {
                     System.out.println(recipe);                    
+                    }
                 }
             }
             
@@ -58,10 +83,9 @@ public class RecipeSearch {
                 System.out.println("Recipes:");
                 
                 for (Recipe recipe : recipes) {
-                    if(recipe.getCookTime() > maxTime) {
-                        continue;
-                    }
+                    if(recipe.cookingTimeAtMost(maxTime)) {
                     System.out.println(recipe);
+                    }
                 }
             }
             
@@ -72,47 +96,11 @@ public class RecipeSearch {
                 System.out.println("Recipes:");
                 
                 for (Recipe recipe : recipes) {
-                    if(!recipe.getIngredients().contains(ingredientSearch)) {
-                        continue;
-                    }
+                    if(recipe.containsIngredient(ingredientSearch)) {
                     System.out.println(recipe);
+                    }
                 }
             }
         }
-    }
-    
-    // Break file down by recipe(seperated by blank line), save parts(row) of each recipe on seperate list recipeParts.
-    // Use the list recipeParts and module setRecipeParts to set variables and add each new recipe
-    // Need last if statement to add last recipe
-    public static ArrayList<Recipe> readRecipesFromFile(String file) {
-        ArrayList<Recipe> recipes = new ArrayList<>();
-        ArrayList<String> recipeParts = new ArrayList<>();
-        
-        try (Scanner scanner = new Scanner(Paths.get(file))) {
-            while (scanner.hasNextLine()) {
-                String row = scanner.nextLine();
-                if (row.isEmpty()) {
-                    setRecipeParts(recipes, recipeParts);
-                } else {
-                    recipeParts.add(row);
-                }
-            }
-            if (!recipeParts.isEmpty()) {
-                setRecipeParts(recipes, recipeParts);
-            }
-        } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
-        }
-        return recipes;
-    }
-    
-    // Method to set appropriate vaiables to add new Recipe
-    private static void setRecipeParts(ArrayList<Recipe> recipes, ArrayList<String> recipeParts) {
-        String recipeName = recipeParts.get(0);
-        int cookTime = Integer.valueOf(recipeParts.get(1));
-        recipeParts.remove(0);
-        recipeParts.remove(0);
-        recipes.add(new Recipe(recipeName, cookTime, new ArrayList<>(recipeParts)));
-        recipeParts.clear();
     }
 }
