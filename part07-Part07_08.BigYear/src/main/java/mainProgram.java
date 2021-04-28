@@ -1,4 +1,3 @@
-
 import java.util.Scanner;
 
 public class mainProgram {
@@ -9,7 +8,10 @@ public class mainProgram {
         // as a parameter
 
         Scanner scan = new Scanner(System.in);
-
+        BirdDatabase birdbase = new BirdDatabase();
+        
+        UserInterface ui = new UserInterface(scan, birdbase);
+        ui.start();
     }
 
 }
