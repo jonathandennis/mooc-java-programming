@@ -1,12 +1,28 @@
-import java.util.Scanner;
+import java.lang.Math;
 
 public class Sandbox {
 
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        WordSet set = new WordSet();
+    public static void main(String[] args) {       
+        int N = 32;       
+        System.out.println("Binary is: " + Integer.toBinaryString(N));
         
-        UserInterface userInterface = new UserInterface(set, scanner);
-        userInterface.start();
+        String binaryRep = Integer.toBinaryString(N);
+        
+        int maxGap = 0;
+        int gap = 0;
+        
+        for(int i = 0; i < binaryRep.length(); i++) {
+            
+            if (binaryRep.charAt(i) == '1') {
+                if (gap > maxGap) {
+                    maxGap = gap;
+                }
+                gap = 0;
+            } else {
+                gap++;
+            }
+        }
+        
+        System.out.println("Max gap: " + maxGap);   
     }
 }
